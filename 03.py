@@ -12,7 +12,7 @@ def get_number(bin):
     return int(''.join(str(i) for i in bin), 2)
 
 
-def search(d, i, comp):
+def search(d, comp=lambda x: x, i=0):
     return d[0] if len(d) == 1 else search([l for l in d if l[i] == comp(max_i(d, i))], i + 1, comp)
 
 
@@ -22,4 +22,4 @@ def solve_1():
 
 
 print(solve_1())
-print(get_number(search(data, 0, lambda x: x)) * get_number(search(data, 0, lambda x: 1-x)))
+print(get_number(search(data)) * get_number(search(data, lambda x: 1-x)))
