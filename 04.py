@@ -7,7 +7,7 @@ GS = [[int(c) for c in ' '.join(data[i:i+6][:5]).split(' ') if len(c)] for i in 
 
 
 def solve(gs = GS, s = [], n = set(NS[:5]), i = 5):
-    return s if i == len(NS) else solve([g for g in gs if not win(g, n)], s + [NS[i-1] * sum(set(g) - n) for g in gs if win(g, n)], n | {NS[i]}, i+1)
+    return s if i == len(NS) else solve([g for g in gs if not win(g, n)], s + [NS[i-1] * sum(set(g) - n) for g in gs if win(g, n)], n|{NS[i]}, i+1)
 
 
 print(solve()[0])
