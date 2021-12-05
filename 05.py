@@ -15,4 +15,4 @@ def solve(grid, filter):
 
 
 print(solve(defaultdict(int), lambda x1, y1, x2, y2: x1 == x2 or y1 == y2))
-print(solve(defaultdict(int), lambda x1, y1, x2, y2: True))
+print(solve(defaultdict(int), lambda *args: True))
