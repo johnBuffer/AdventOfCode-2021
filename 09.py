@@ -7,9 +7,8 @@ LOWS = [(x, y) for x in range(len(DATA[0])) for y in range(len(DATA)) if all(DAT
 
 # it works
 def find_bassin(x, y, e = set()): return 0 if (x, y) in e else (e.add((x, y)), 1 + sum(find_bassin(w, z, e) for w, z in get_surr(x, y) if 9 > DATA[z][w] > DATA[y][x]))[1]
-
-bassins = sorted([find_bassin(x, y) for x, y in LOWS])
+BAS = sorted([find_bassin(x, y) for x, y in LOWS])
 
 
 print(sum(DATA[y][x] + 1 for x, y in LOWS))
-print(bassins[-1] * bassins[-2] * bassins[-3])
+print(BAS[-1] * BAS[-2] * BAS[-3])
