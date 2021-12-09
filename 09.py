@@ -6,8 +6,8 @@ get_surr = lambda x, y: [(w, z) for w, z in [(x - 1, y), (x + 1, y), (x, y - 1),
 LOWS = [(x, y) for x in range(len(DATA[0])) for y in range(len(DATA)) if all(DATA[y][x] < DATA[oy][ox] for ox, oy in get_surr(x, y))]
 
 # it works
-def find_bassin(x, y, e = set()): return 0 if (x, y) in e else (e.add((x, y)), 1 + sum(find_bassin(w, z, e) for w, z in get_surr(x, y) if 9 > DATA[z][w] > DATA[y][x]))[1]
-BAS = sorted([find_bassin(x, y) for x, y in LOWS])
+def find_bassin(c, e=set()): return 0 if c in e else (e.add(c), 1 + sum(find_bassin(o, e) for o in get_surr(*c) if 9 > DATA[o[1]][o[0]] > DATA[c[1]][c[0]]))[1]
+BAS = sorted([find_bassin(c) for c in LOWS])
 
 
 print(sum(DATA[y][x] + 1 for x, y in LOWS))
