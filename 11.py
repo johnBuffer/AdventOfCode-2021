@@ -5,7 +5,7 @@ from collections import defaultdict
 DATA = [[int(i) for i in l] for l in load_input(11)]
 
 
-def add(x, y, grid):
+def check_flash(x, y, grid):
     if grid[(x, y)] >= 10:
         grid[(x, y)] = 0
         for c in [(x + ox, y + oy) for oy in range(-1, 2) for ox in range(-1, 2)]:
@@ -16,7 +16,7 @@ def add(x, y, grid):
 
 def simulate(grid):
     for c in [(x, y) for x in range(10) for y in range(10)]: grid[c] += 1
-    for c in [(x, y) for x in range(10) for y in range(10)]: add(*c, grid)
+    for c in [(x, y) for x in range(10) for y in range(10)]: check_flash(*c, grid)
     return sum(grid[(x, y)] == 0 for x in range(10) for y in range(10))
 
 
