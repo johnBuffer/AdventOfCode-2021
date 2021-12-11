@@ -11,7 +11,7 @@ def check_flash(x, y, grid):
         for c in [(x + ox, y + oy) for oy in range(-1, 2) for ox in range(-1, 2)]:
             if grid[c] > 0:
                 grid[c] += 1
-                add(*c, grid)
+                check_flash(*c, grid)
 
 
 def simulate(grid):
