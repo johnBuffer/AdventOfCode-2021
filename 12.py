@@ -11,4 +11,4 @@ def walk(cs, a='start', d='', p=''):
 
 
 print(len(walk(M)))
-print(len(set().union(*[walk(M, d=c) for c in set(k for k in M) if c.islower() and c != 'start'])))
+print(len(set().union(*[walk(M, d=c) for c in set(M) if c.islower() and c != 'start'])))
