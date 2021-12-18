@@ -15,16 +15,12 @@ def parse_num(l, d=0, id=''):
 def explode(x):
     for i, (n, id) in enumerate(x):
         if len(id) > 4 and is_left(x, i):
-                n_right, id_right = x[i+1]
-                if i > 0:
-                    n2, id2 = x[i-1]
-                    x[i-1] = (n2+n, id2)
-                if i < len(x) - 2:
-                    n2, id2 = x[i+2]
-                    x[i+2] = (n_right+n2, id2)
-                x.remove((n_right, id_right))
-                x[i] = (0, id[:-1])
-                return True
+            n_right, id_right = x[i+1]
+            if i > 0: x[i-1] = (x[i-1][0]+n, x[i-1][1])
+            if i < len(x) - 2: x[i+2] = (n_right+x[i+2][0], x[i+2][1])
+            x.remove((n_right, id_right))
+            x[i] = (0, id[:-1])
+            return True
     return False
 
 
@@ -32,18 +28,13 @@ def split(x):
     for i, (n, id) in enumerate(x):
         if n > 9:
             x.remove((n, id))
-            x.insert(i, (n//2, id+'l'))
-            x.insert(i+1, (int(math.ceil(n/2)), id+'r'))
+            for v in [(int(math.ceil(n/2)), id+'r'), (n//2, id+'l')]: x.insert(i, v)
             return True
     return False
 
 
 def is_left(x, i):
-    if i < len(x)-1:
-        n_1, id_1 = x[i]
-        n_2, id_2 = x[i+1]
-        if len(id_1) == len(id_2):
-            return id_1[:-1] == id_2[:-1] and id_1[-1] == 'l' and id_2[-1] == 'r' and isinstance(n_1, int) and isinstance(n_2, int)
+    if i < len(x)-1: return x[i][1][:-1] == x[i+1][1][:-1]
     return False
 
 
@@ -52,8 +43,7 @@ def calc_ampl(x):
         for i, (n, id) in enumerate(x):
             if is_left(x, i):
                 n_right, id_right = x[i+1]
-                x.remove((n, id))
-                x.remove((n_right, id_right))
+                for v in [(n, id), (n_right, id_right)]: x.remove(v)
                 x.insert(i, (3*n + 2*n_right, id[:-1]))
     return x[0][0]
 
